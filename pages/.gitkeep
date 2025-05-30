@@ -1,0 +1,13 @@
+# Pasta de Pages
+
+Esta pasta e destinada as suas paginas separadas (arquivos .xml).
+
+## Estrutura Recomendada
+- Cada pagina pode ser um arquivo separado (ex: menu.xml, jogo.xml)
+- Ou todas as paginas podem ficar na fable.xml principal
+- Use tags personalizadas na fable.xml para referenciar paginas aqui
+
+## Como usar
+1. Crie arquivos .xml para suas paginas aqui
+2. Referencie na fable.xml com tags como <menu/>, <jogo/>
+3. Ou declare todas as paginas direto na fable.xml (recomendado para iniciantes)
