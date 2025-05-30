@@ -1,0 +1,382 @@
+<!-- Arquivo principal da fabula - define configuracoes globais e estrutura -->
+<fable>
+  <!-- Configuracao global da fonte para toda a fabula -->
+  <config font-family="Poppins" />
+
+  <!-- Propriedades globais - variaveis que persistem entre paginas -->
+  <property name="pontuacao" default="0" />
+  <property name="nome_jogador" default="Aventureiro" />
+  <property name="nivel" default="1" />
+  <property
+    name="equipamentos"
+    default="['Microscopio', 'Tubo de Ensaio', 'Centrifuga']"
+  />
+
+  <!-- Paginas navegaveis - devem ser declaradas aqui ou invocadas por tags personalizadas -->
+  <page
+    id="menu"
+    bg_color="#2a5d31"
+    bg_image="forest-bg.png"
+    bg_music="osts-retro-forest.mp3"
+  >
+    <agent
+      id="titulo"
+      x="300"
+      y="80"
+      text="Minha Primeira Fabula"
+      color="#ffffff"
+      font-size="28"
+      animation="slide-down"
+    />
+
+    <agent
+      id="subtitulo"
+      x="320"
+      y="120"
+      text="Bem-vindo, $nome_jogador!"
+      color="#ffff88"
+      font-size="18"
+      animation="typewriter"
+    />
+
+    <agent
+      id="btn_exemplo"
+      x="200"
+      y="200"
+      text="Ver Exemplo"
+      color="#ffffff"
+      font-size="16"
+      animation="bounce-in hover-grow click-bounce"
+      on_click="goToPage('exemplo')"
+    />
+
+    <agent
+      id="btn_tutorial"
+      x="450"
+      y="200"
+      text="Tutorial"
+      color="#ffffff"
+      font-size="16"
+      animation="bounce-in hover-grow click-bounce"
+      on_click="goToPage('tutorial')"
+    />
+
+    <agent
+      id="arvore1"
+      x="50"
+      y="300"
+      image="forest-tree-1.png"
+      animation="slide-left"
+    />
+    <agent
+      id="arvore2"
+      x="650"
+      y="320"
+      image="forest-tree-2.png"
+      animation="slide-right"
+    />
+    <agent
+      id="cogumelo"
+      x="150"
+      y="450"
+      image="forest-mushroom.png"
+      animation="bounce-in hover-bounce"
+    />
+
+    <agent
+      id="contador"
+      x="350"
+      y="300"
+      text="Cliques: $pontuacao"
+      color="#88ff88"
+      font-size="14"
+      animation="pulse"
+    />
+
+    <agent
+      id="btn_clique"
+      x="350"
+      y="330"
+      text="Clique aqui!"
+      color="#ffaa00"
+      font-size="14"
+      animation="wiggle hover-glow click-shake"
+      on_click="set(pontuacao, $pontuacao + 1)"
+    />
+
+    <fab-if when="$pontuacao >= 3">
+      <agent
+        id="parabens"
+        x="350"
+        y="360"
+        text="Parabens!"
+        color="#ff6600"
+        font-size="16"
+      />
+    </fab-if>
+
+    <agent
+      id="info"
+      x="50"
+      y="550"
+      text="Nivel: $nivel | Use CTRL+Space para autocomplete"
+      color="#cccccc"
+      font-size="12"
+    />
+  </page>
+
+  <page
+    id="exemplo"
+    bg_color="#1a1a2e"
+    bg_image="tech-bg-lab.png"
+    bg_music="osts-stage.mp3"
+  >
+    <agent
+      id="titulo_exemplo"
+      x="300"
+      y="50"
+      text="Laboratorio de Exemplos"
+      color="#00ffff"
+      font-size="24"
+      animation="glitch"
+    />
+
+    <agent
+      id="instrucao"
+      x="50"
+      y="100"
+      text="Arraste os elementos para o recipiente:"
+      color="#ffffff"
+      font-size="14"
+      animation="slide-reveal"
+    />
+
+    <agent
+      id="elemento1"
+      x="100"
+      y="150"
+      image="tech-acid-1.png"
+      draggable="true"
+      drop_accept="recipiente"
+      animation="glow hover-tilt"
+    />
+
+    <agent
+      id="elemento2"
+      x="200"
+      y="150"
+      image="tech-acid-2.png"
+      draggable="true"
+      drop_accept="recipiente"
+      animation="glow hover-tilt"
+    />
+
+    <agent
+      id="recipiente"
+      x="400"
+      y="200"
+      image="tech-barrel-1.png"
+      on_drop="set(pontuacao, $pontuacao + 10)"
+      animation="pulse hover-bounce"
+    />
+
+    <agent
+      id="lista_titulo"
+      x="50"
+      y="300"
+      text="Equipamentos do Lab:"
+      color="#ffff00"
+      font-size="16"
+    />
+
+    <fab-for each="$equipamentos" index="i">
+      <agent
+        id="item-$i"
+        x="70"
+        y="$330 + $i * 25"
+        text="$equipamentos[$i]"
+        color="#ccffcc"
+        font-size="12"
+      />
+    </fab-for>
+
+    <agent
+      id="voltar_exemplo"
+      x="600"
+      y="500"
+      text="Voltar ao Menu"
+      color="#ffffff"
+      font-size="14"
+      on_click="goToPage('menu')"
+    />
+
+    <agent id="caixa1" x="600" y="150" image="tech-box.png" />
+    <agent id="cerca" x="500" y="350" image="tech-fence-1.png" />
+  </page>
+
+  <page id="tutorial" bg_color="#0f1419" bg_music="osts-fear.mp3">
+    <agent
+      id="titulo_tutorial"
+      x="300"
+      y="40"
+      text="Tutorial da DSL Fable"
+      color="#ffffff"
+      font-size="22"
+    />
+
+    <agent
+      id="secao1"
+      x="50"
+      y="100"
+      text="1. Estrutura Basica:"
+      color="#ffaa00"
+      font-size="16"
+    />
+
+    <agent
+      id="texto1"
+      x="70"
+      y="125"
+      text="fable - Raiz da narrativa"
+      color="#cccccc"
+      font-size="12"
+    />
+
+    <agent
+      id="texto2"
+      x="70"
+      y="145"
+      text="page - Cenas/telas da historia"
+      color="#cccccc"
+      font-size="12"
+    />
+
+    <agent
+      id="texto3"
+      x="70"
+      y="165"
+      text="agent - Elementos interativos"
+      color="#cccccc"
+      font-size="12"
+    />
+
+    <agent
+      id="secao2"
+      x="50"
+      y="210"
+      text="2. Propriedades e Variaveis:"
+      color="#ffaa00"
+      font-size="16"
+    />
+
+    <agent
+      id="texto4"
+      x="70"
+      y="235"
+      text="Use $variavel para interpolar valores"
+      color="#cccccc"
+      font-size="12"
+    />
+
+    <agent
+      id="texto5"
+      x="70"
+      y="255"
+      text="set(nome, valor) para alterar propriedades"
+      color="#cccccc"
+      font-size="12"
+    />
+
+    <agent
+      id="secao3"
+      x="50"
+      y="300"
+      text="3. Assets do Starter-Kit:"
+      color="#ffaa00"
+      font-size="16"
+    />
+
+    <agent
+      id="texto6"
+      x="70"
+      y="325"
+      text="181 assets sempre disponiveis"
+      color="#cccccc"
+      font-size="12"
+    />
+
+    <agent
+      id="texto7"
+      x="70"
+      y="345"
+      text="Categorias: cemetery, desert, forest, snow, tech, osts"
+      color="#cccccc"
+      font-size="12"
+    />
+
+    <agent
+      id="demo_titulo"
+      x="400"
+      y="100"
+      text="Exemplos Visuais:"
+      color="#00ff88"
+      font-size="16"
+    />
+
+    <agent id="demo1" x="450" y="140" image="cemetery-skeleton.png" />
+    <agent id="demo2" x="520" y="140" image="desert-cactus.png" />
+    <agent id="demo3" x="590" y="140" image="snow-snowman.png" />
+
+    <agent
+      id="secao4"
+      x="400"
+      y="220"
+      text="4. Eventos Interativos:"
+      color="#ff6600"
+      font-size="16"
+    />
+
+    <agent
+      id="demo_botao"
+      x="450"
+      y="260"
+      text="Teste!"
+      color="#ffffff"
+      font-size="14"
+      on_click="set(nivel, $nivel + 1)"
+    />
+
+    <agent
+      id="nivel_atual"
+      x="450"
+      y="290"
+      text="Nivel atual: $nivel"
+      color="#88ff88"
+      font-size="12"
+    />
+
+    <fab-if when="$nivel > 3">
+      <agent
+        id="mestre"
+        x="450"
+        y="320"
+        text="Voce e um mestre!"
+        color="gold"
+        font-size="14"
+      />
+    </fab-if>
+
+    <agent
+      id="voltar_tutorial"
+      x="300"
+      y="500"
+      text="Voltar ao Menu"
+      color="#ffffff"
+      font-size="16"
+      on_click="goToPage('menu')"
+    />
+
+    <agent id="lapide" x="650" y="400" image="cemetery-tombstone-1.png" />
+    <agent id="cristal" x="100" y="450" image="snow-crystal.png" />
+  </page>
+</fable>
